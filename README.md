@@ -9,3 +9,5 @@ I have always had a fascination with encrypting information, and would often qui
 
 To simulate the emotions rather than the technicalities of encryption, I designed a simplistic and supposedly harmless display of three computers from different points of my lifetime.
 
+
+the second computer is from when i was slightly older but still a child. in this experience i ad come inot comntact woth ransomeware for the first time after going to an illegal website to watch a movie, 

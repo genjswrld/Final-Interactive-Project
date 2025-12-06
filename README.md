@@ -7,7 +7,9 @@ I initially had quite a large idea wherein there would be a multi-room artwork w
 
 I have always had a fascination with encrypting information, and would often quite rashly lock things away as a child, leading to large amounts of my old work being essentially lost as I could no longer recall the passwords I’d set for these files. Similarly, I was quite interested in ransomware and the encryption it imposed on victims’ files — another way in which the effects of encryption would evoke memory.
 
-To simulate the emotions rather than the technicalities of encryption, I designed a simplistic and supposedly harmless display of three computers from different points of my lifetime.
+To simulate the emotions rather than the technicalities of encryption, I designed a simplistic and supposedly harmless display of three 'computers' from different points of my lifetime; purposefully vague boxes to only be reminiscent of the silhouette of computers so as not to represent any specific brand or type of monitor. 
+
+ 
 
 
 the second computer is from when i was slightly older but still a child. in this experience i ad come inot comntact woth ransomeware for the first time after going to an illegal website to watch a movie, 

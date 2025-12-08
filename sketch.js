@@ -38,7 +38,9 @@ let virusStartTime = 0;
 let fadeActive = false;
 let fadeLevel = 0;
 
-// bg
+// bg, i wanted a soft moving changing color background that simultaneously felt like it wasn't too strenuous
+// on the eyes, using random would've caused the background to change to fast as opposed to the soft, dream-like fade
+// i wanted to achieve. i discovered the noise value (https://p5js.org/reference/p5/noise/)
 let bgR = 192, bgG = 200, bgB = 210;
 
 function drawBackground() {
@@ -223,9 +225,9 @@ function runVirusEffect() {
     virusStartTime = millis(); //https://p5js.org/reference/p5/millis/
   }
 
-  if (millis() - virusStartTime > 3000) { // atfirst i wanted to estimate a time for  this to begin, 
+  if (millis() - virusStartTime > 3000) { // at first i wanted to estimate a time for  this to begin, 
     //but i realised soon after that, that was extrememly impractical as theres
-    //no way i could assume one would simply play through the showcase straight, so when i found out that millis
+    //no way i could assume one would simply play through the showcase straight, so when i found out that 'millis'
     // started counting as soon as the project was run, i used it to set the starting point for the 'virus' to then contonue
     // for 3000 ms (3s)
     noLoop();
@@ -244,7 +246,7 @@ function runDeleteFade() {
     background(0);
     fill(255); // fade level increases every frame, by drawing a fullscreen black rectangle
 // and then setting the opacity to be the fade level vriable, once it reaches full opacity (255) its deleted
-// and normal fill rectangle is made
+// and normal fully filled rectangle is made.
     
     text(
       "Some things remain encrypted forever.\n\n" +

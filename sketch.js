@@ -74,3 +74,35 @@ function drawFileIcon(icon) {
   fill(20);
   text(icon.label, icon.x + 8, icon.y + 8);
 }
+function mousePressed() {
+  if (fadeActive) return; // nothing after delete
+
+  // Choice buttons
+  if (showChoiceButtons && !virusActive) {
+    // DECRYPT
+    if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
+      virusActive = true;
+      return;
+    }
+    // DELETE
+    if (mouseX > 400 && mouseX < 480 && mouseY > 380 && mouseY < 420) {
+      fadeActive = true;
+      return;
+    }
+  }
+
+  // this is to scramble per each click
+  if (currentOpenFile === "scrambled" && !virusActive) {
+    teasingIndex = (teasingIndex + 1) % teasingMessages.length;
+    scrambledText = scrambleText(fileIcons[2].label);
+    return;
+  }
+
+  // simple hitbox for whne the boxes are clciked to open the 'files'
+  for (let icon of fileIcons) {
+    if (mouseX > icon.x && mouseX < icon.x + 140 &&
+        mouseY > icon.y && mouseY < icon.y + 40) {
+      openFile(icon);
+    }
+  }
+}

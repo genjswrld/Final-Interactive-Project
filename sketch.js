@@ -33,6 +33,10 @@ let fadeLevel = 0;
 
 // bg
 let bgR = 192, bgG = 200, bgB = 210;
+function drawBackground() {
+  let n = noise(frameCount * 0.005);
+  background(bgR + n*20, bgG + n*20, bgB + n*20);
+}
 
 function setup() {
   createCanvas(700, 500);

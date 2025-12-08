@@ -1,31 +1,34 @@
 // encrypted - a short metaphorical showcase
 
 
-// i designed the icons and layout first because they are simple geometric shapes, and it gave me a visual structure to build the interaction flow onto. i also set up all my fuctions too to avoid confusion as i went along
+// i designed the icons and layout first because they are simple geometric shapes, 
+//and it gave me a visual structure to build the interaction flow onto. 
+//i also set up all my fuctions too to avoid confusion as i went along, i had written out a skeleton of what i wanted to happen
+//this way i was able to idenity what vraiables and fucntions i may need (though i added as i went along)
 
 let fileIcons = [];
-let currentOpenFile = null;
+let currentFile = null;
 
 // Scrambled file behaviour
 let scrambledText = "";
-let teasingMessages = [
+let mockingMessages = [
   "You locked it away, didn't you?",
   "You don't even remember.",
   "Trying won't help.",
   "It's gone because you hid it.",
   "Why keep clicking?"
 ];
-let teasing = 0;
+let mocking = 0;
 
 // choices
 let showChoiceButtons = false;
 let choiceStartTime = 0;
-let choiceTimerStarted = false;
+let choiceTimerStart = false;
 
 // virus mode
 let virusActive = false;
 let virusPopups = [];
-let virusStartTime = 0;
+let virusStart = 0;
 
 // delete mode
 let fadeActive = false;
@@ -59,7 +62,7 @@ function draw() {
     drawOpenFileWindow();
   }
 
-  //buttons
+  //buttons, using booleans fr simplicity as opposed to writng out a new 
   if (showChoiceButtons && !virusActive) {
     drawChoiceButtons();
   }
@@ -81,7 +84,7 @@ function drawFileIcon(icon) {
 function mousePressed() {
   if (fadeActive) return; // nothing after delete
 
-  // Choice buttons
+  // choice buttons
   if (showChoiceButtons && !virusActive) {
     // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
@@ -97,12 +100,13 @@ function mousePressed() {
 
   // this is to scramble per each click
   if (currentOpenFile === "scrambled" && !virusActive) {
-    teasingIndex = (teasing + 1) % teasingMessages.length;
+    mockingIndex = (mocking + 1) % mockingMessages.length;
     scrambledText = scrambleText(fileIcons[2].label);
     return;
   }
 
-  // simple hitbox / detecting the clicks
+  // simple hitbox / detecting the clicks, gotten from https://editor.p5js.org/Wacksowe/sketches/MRguew7F7,
+  //what ive understood from this 
   for (let icon of fileIcons) {
     if (mouseX > icon.x && mouseX < icon.x + 140 &&
         mouseY > icon.y && mouseY < icon.y + 40) {
@@ -121,8 +125,8 @@ function openFile(icon) {
     currentOpenFile = "scrambled";
     scrambledText = scrambleText(icon.label);
 
-    if (!choiceTimerStarted) {
-      choiceTimerStarted = true;
+    if (!choiceTimerStart) {
+      choiceTimerStart = true;
       choiceStartTime = millis();
     }
   }
@@ -132,16 +136,16 @@ function drawOpenFileWindow() {
   rect(260, 80, 380, 260);
   fill(20);
   
-  if (currentOpenFile === "word") {
+  if (currentFile === "word") {
     text("Groceries:\n- milk\n- wraps\n- blue pens", 280, 100);
   }
-  if (currentOpenFile === "dates") {
+  if (currentFile === "dates") {
     text("12/03 — bday\n19/06 — term end\n02/11 — new phone\n28/08 — trip", 280, 100);
   }
-  if (currentOpenFile === "scrambled") {
+  if (currentFile === "scrambled") {
     text(
       "File name:\n" + scrambledText +
-      "\n\n" + teasingMessages[teasing],
+      "\n\n" + mockingMessages[mocking],
       280, 100
     );
     if (!showChoiceButtons && millis() - choiceStartTime > 5000) {
@@ -149,3 +153,4 @@ function drawOpenFileWindow() {
     }
   }
 }
+function 

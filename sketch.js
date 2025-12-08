@@ -96,7 +96,12 @@ function drawFileIcon(icon) {
 function mousePressed() {
   if (fadeActive) return;
 
-  // choice buttons
+  // choice buttons,
+      // here i learned that p5.js doesn't automatically detect clicks so i had to code a sort of hitbox parameter
+     // just check if the mouse is inside the little box-area where my buttons are drawn. 
+    // it’s compares the mouseX + mouseY to the rectangle’s boundaries, if the click was within the boundaries
+  // then that triggers the whole virus sequnce that i used a boolean for for simplicity, same logic for the 'delete' route
+
   if (showChoiceButtons && !virusActive) {
     // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
@@ -191,12 +196,15 @@ function drawChoiceButtons() {
 
 function scrambleText(label) {
   return label
-    .split("")
+    .split("") // i knew vaguely of the split function from python, in p5.js it creates an erray from every character (https://p5js.org/reference/p5/split/)
     .sort(() => random(-1, 1))
-    .join("");
+    .join(""); 
+  // the sort function doesn’t really care what order things end up in, it just keeps
+  // reordering the characters based on whatever random value it gets. that’s what makes
+  // the text scramble in a kind of chaotic way.
 }
 
-// part
+
 function runVirusEffect() {
   let n = noise(frameCount * 0.1);
   background(250, 200 + n * 30, 200 + n * 30);

@@ -169,4 +169,64 @@ function drawChoiceButtons() {
   text("decrypt", 308, 390);
   text("delete", 408, 390);
 }
-function scrambleText (label)
+function scrambleText(label) {
+  // this function basically "jumbles" the text in the file window. 
+  // i wanted it to look glitchy but i didn’t want to hardcode random letters,
+  // so i found out you can take the actual label string and shuffle it.
+
+  return label
+     .split("") //turns the text into an array of single characters.
+    // i only knew .split vaguely from python stuff but i checked the JS ref to see if it operated the same
+    .sort(() => random(-1, 1))
+    .join("");
+}
+// part
+function runVirusEffect() {
+  let n = noise(frameCount * 0.02);
+  background(250, 200 + n*30, 200 + n*30);
+
+  // spawn popups
+  if (frameCount % 5 === 0) {
+    virusPopups.push({
+      x: random(width - 150),
+      y: random(height - 60),
+      text: random(["ERROR", "invalid", "You can let it go.", "It's gone for a reason.", "It's better hidden."])
+    });
+  }
+
+  // draw popups
+  for (let box of virusPopups) {
+    fill(255, 230);
+    rect(box.x, box.y, 150, 50);
+    fill(20);
+    text(box.text, box.x + 10, box.y + 10);
+  }
+
+  // stop after 3 seconds
+  if (virusStartTime === 0) virusStartTime = millis();
+  if (millis() - virusStartTime > 3000) {
+    noLoop();
+  }
+}
+// part
+function runDeleteFade() {
+  fadeLevel += 3;
+  fill(0, fadeLevel);
+  rect(0, 0, width, height);
+
+  if (fadeLevel > 255) {
+    background(0);
+    fill(255);
+    text(
+      "Some things remain encrypted forever.\n\n" +
+      "Not because they're dangerous,\n" +
+      "but because letting them go\n" +
+      "is kinder than trying to recover\n" +
+      "what no longer fits.\n\n" +
+      "Not all memory needs to be opened.",
+      120, 120
+    );
+    noLoop();
+  }
+}
+//

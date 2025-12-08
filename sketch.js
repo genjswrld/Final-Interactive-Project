@@ -45,7 +45,7 @@ let bgR = 192, bgG = 200, bgB = 210;
 
 function drawBackground() {
   let n = noise(frameCount * 0.005);
-  background(bgR + n * 20, bgG + n * 20, bgB + n * 20);
+  background(bgR + n * 100, bgG + n * 100, bgB + n * 100);
 }
 
 function setup() {

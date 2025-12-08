@@ -203,8 +203,9 @@ function runVirusEffect() {
   }
 
   // stop after 3 seconds
-  if (virusStartTime === 0) virusStartTime = millis();
-  if (millis() - virusStartTime > 3000) {
+  if (virusStartTime === 0) {
+    virusStartTime = millis(); 
+  if (millis() - virusStartTime > 3000) { //as millis keeps running, the different 
     noLoop();
   }
 }
@@ -219,12 +220,18 @@ function runDeleteFade() {
     fill(255);
     text(
       "Some things remain encrypted forever.\n\n" +
-      "Not because they're dangerous,\n" +
-      "but because letting them go\n" +
+      "Not because they're dangerous, maybe they are\n" +
+      "but sometimes letting them go\n" +
       "is kinder than trying to recover\n" +
-      "what no longer fits.\n\n" +
-      "Not all memory needs to be opened.",
-      120, 120
+      "what no longer fits.\n" +
+      "Not all memory needs to be opened,\n" +
+      "pushing, prodding, prying into your mind;\n" +
+      "hurting as it re-rears its ugly head and draws a plough \n" +
+      "deeper\n" +
+      "and deeper.\n" +
+      "Not all memory needs to be opened. \n\n" +
+      "We too encrypt and guard ourselves.",
+       120, 120
     );
     noLoop();
   }

@@ -20,10 +20,11 @@ Clicking it scrambles its name and triggers a series of lightly mocking messages
 
 After a short delay, the desktop offers two options: decrypt or delete. 
 
-Choosing decrypt overwhelms the screen with error messages — fast, repetitive pop-ups that echo the panicked chaos of encountering malware.
-Choosing delete causes the screen to fade gently to black, revealing a meditative message about memory, encryption, and the idea that some things become unreadable with time — and that not everything needs to be recovered.
+Choosing decrypt overwhelms the screen with error messages — fast, repetitive pop-ups that echo the panicked chaos of encountering malware, a blockage of sorts an imitation of the dread of resurfacing bad memories. (Which is implied by the file's title of 'when it changed'.
+
+Choosing delete causes the screen to fade gently to black, revealing a meditative message about memory, encryption, and the idea that some things become unreadable with time, and that not everything needs to be recovered.
 
 The project ultimately becomes a metaphor for how we store, lose, and sometimes intentionally bury parts of our lives. Through these two outcomes, the project frames encryption not as a mathematical operation, but as a human process. Instead of focusing on technical encryption, this project uses human-centred interaction design to explore how people store, distort, and protect their emotional histories. The code itself is straightforward, but it works in service of a metaphor: the interface behaves like a mind with compartments, some open and ordinary, some locked, and some better left undisturbed.
 
-Some memories remain organised and accessible; others become scrambled by time or deliberately hidden away. And sometimes, choosing to leave something encrypted, or to let it fade, is more compassionate than trying to dig it back up.
+In shaping the final screen, I wanted the project to resolve not with a technical conclusion, but with a reflective one. The concluding message is deliberately contemplative: a moment where the interface stops performing encryption and instead meditates on it. 
 

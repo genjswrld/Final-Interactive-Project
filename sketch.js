@@ -12,7 +12,7 @@
 let fileIcons = [];
 let currentFile = null;
 
-// Scrambled file behaviour
+// array for the messages displayed when the 'locked file is pressed'
 let scrambledText = "";
 let mockingMessages = [
   "You locked it away, didn't you?",
@@ -63,8 +63,8 @@ function draw() {
   for (let icon of fileIcons) {
     drawFileIcon(icon);
   }
-  if (currentOpenFile && !virusActive && !fadeActive) {
-    drawOpenFileWindow();
+  if (currentFile && !virusActive && !fadeActive) {
+    drawOpenFileWindow(); // open the file if the virus mode isnt active (virus mode is only triggered by pressing 'when it changed')
   }
 
   //buttons, using booleans fr simplicity as opposed to writng out a new 
@@ -96,7 +96,7 @@ function mousePressed() {
     // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
       virusActive = true;
-      return; // what i understood from this: 
+      return; // what i understood from this: mouse x and mose y track the mouse potion of the screen, so i manually, the && means AND so both the bounds of X,Y must be true to count as a click in that box specifically.
     }
     // delete
     if (mouseX > 400 && mouseX < 480 && mouseY > 380 && mouseY < 420) {
@@ -106,7 +106,7 @@ function mousePressed() {
   }
 
   // this is to scramble per each click
-  if (currentOpenFile === "scrambled" && !virusActive) {
+  if (currentFile === "scrambled" && !virusActive) {
     mockingIndex = (mocking + 1) % mockingMessages.length; // the use of modulus here will move along the array i made
     // as it moves along the index MockingMessages and then loops back
     scrambledText = scrambleText(fileIcons[2].label);
@@ -160,4 +160,3 @@ function drawOpenFileWindow() {
     }
   }
 }
-function 

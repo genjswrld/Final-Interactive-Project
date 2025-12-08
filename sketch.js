@@ -46,3 +46,24 @@ function setup() {
     { label: "when it changed", x: 80, y: 320 }
   ];
 }
+function draw() {
+  drawBackground();
+  for (let icon of fileIcons) {
+    drawFileIcon(icon);
+  }
+  if (currentOpenFile && !virusActive && !fadeActive) {
+    drawOpenFileWindow();
+  }
+
+  //buttons
+  if (showChoiceButtons && !virusActive) {
+    drawChoiceButtons();
+  }
+  if (virusActive) {
+    runVirusEffect();
+  }
+  // fade2black
+  if (fadeActive) {
+    runDeleteFade();
+  }
+}

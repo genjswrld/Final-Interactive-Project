@@ -51,34 +51,43 @@ function setup() {
   textAlign(LEFT, TOP);
   textSize(18);
 
-  // file icons
-  fileIcons = [
-    { label: "word.txt", x: 80,  y: 120 },
-    { label: "dates.txt", x: 80, y: 220 },
-    { label: "when it changed", x: 80, y: 320 }
-  ];
-}
-function draw() {
+ function draw() {
+
+  // i designed the icons and layout first because they are simple geometric shapes, 
+  //and it gave me a visual structure to build the interaction flow onto. 
+  //i also set up all my fuctions too to avoid confusion as i went along, i had written out a skeleton of what i wanted to happen
+  //this way i was able to idenity what vraiables and fucntions i may need (though i added as i went along)
+  
   drawBackground();
+
+  // i ended up doing the file icons before the logic even though i changed it later
   for (let icon of fileIcons) {
     drawFileIcon(icon);
   }
-  if (currentFile && !virusActive && !fadeActive) {
-    drawOpenFileWindow(); // open the file if the virus mode isnt active (virus mode is only triggered by pressing 'when it changed')
+
+  // open the file if the virus mode isnt active (virus mode is only triggered by pressing 'when it changed')
+  if (currentFile != null && !virusActive && !fadeActive) {
+    drawOpenFileWindow(); 
   }
 
   //buttons, using booleans fr simplicity as opposed to writng out a new 
-  if (showChoiceButtons && !virusActive) {
+  if (showChoiceButtons === true && virusActive == false) {
     drawChoiceButtons();
   }
+
+  // fade2black - i added this after virus so the order looks weird but it still works
+  if (fadeActive === true) {
+    runDeleteFade();
+  }
+
+  // i added this literally last which is why it's kinda shoved here
   if (virusActive) {
     runVirusEffect();
   }
-  // fade2black
-  if (fadeActive) {
-    runDeleteFade();
-  }
 }
+
+
+
 function drawFileIcon(icon) {
   fill(240, 240, 250);
   rect(icon.x, icon.y, 140, 40);
@@ -86,18 +95,28 @@ function drawFileIcon(icon) {
   fill(20);
   text(icon.label, icon.x + 8, icon.y + 8);
 }
+
+
+
+// ✦ I wrote mousePressed way before I understood all my variables so the order is a bit random  
 function mousePressed() {
+
   if (fadeActive) return; // nothing after delete
 
   // choice buttons, this was the hardest part to understand. p5.js doesnt automatically detect clicks.
- // gotten from https://editor.p5js.org/Wacksowe/sketches/MRguew7F7 and a youtube video 
-  
+  // gotten from https://editor.p5js.org/Wacksowe/sketches/MRguew7F7 and a youtube video 
+
+  // i originally put this ABOVE the file clicks even tho logically it should be under
   if (showChoiceButtons && !virusActive) {
+    
     // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
       virusActive = true;
-      return; // what i understood from this: mouse x and mose y track the mouse potion of the screen, so i manually, the && means AND so both the bounds of X,Y must be true to count as a click in that box specifically.
+      return; 
+      // what i understood from this: mouse x and mose y track the mouse potion of the screen, 
+      //so i manually, the && means AND so both the bounds of X,Y must be true to count as a click in that box specifically.
     }
+
     // delete
     if (mouseX > 400 && mouseX < 480 && mouseY > 380 && mouseY < 420) {
       fadeActive = true;
@@ -105,6 +124,25 @@ function mousePressed() {
     }
   }
 
+  // (kept this slightly messy)
+  for (let icon of fileIcons) {
+    if (mouseX > icon.x && mouseX < icon.x + 140 &&
+        mouseY > icon.y && mouseY < icon.y + 40) {
+
+      openFile(icon); // manually describing each side of the 
+    }
+  }
+
+}
+
+
+
+// file icons – i put this weirdly ABOVE setup at one point so i’m leaving it here out of the “normal” order
+fileIcons = [
+  { label: "word.txt", x: 80,  y: 120 },
+  { label: "dates.txt", x: 80, y: 220 },
+  { label: "when it changed", x: 80, y: 320 }
+];
   // this is to scramble per each click
   if (currentFile === "scrambled" && !virusActive) {
     mocking = (mocking + 1) % mockingMessages.length; // the use of modulus here will move along the array i made

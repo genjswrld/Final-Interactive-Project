@@ -102,7 +102,7 @@ function mousePressed() {
     return;
   }
 
-  // simple hitbox for whne the boxes are clciked to open the 'files'
+  // simple hitbox / detecting the clicks
   for (let icon of fileIcons) {
     if (mouseX > icon.x && mouseX < icon.x + 140 &&
         mouseY > icon.y && mouseY < icon.y + 40) {
@@ -124,6 +124,28 @@ function openFile(icon) {
     if (!choiceTimerStarted) {
       choiceTimerStarted = true;
       choiceStartTime = millis();
+    }
+  }
+}
+function drawOpenFileWindow() {
+  fill(255);
+  rect(260, 80, 380, 260);
+  fill(20);
+  
+  if (currentOpenFile === "word") {
+    text("Groceries:\n- milk\n- wraps\n- blue pens", 280, 100);
+  }
+  if (currentOpenFile === "dates") {
+    text("12/03 — bday\n19/06 — term end\n02/11 — new phone\n28/08 — trip", 280, 100);
+  }
+  if (currentOpenFile === "scrambled") {
+    text(
+      "File name:\n" + scrambledText +
+      "\n\n" + teasingMessages[teasingIndex],
+      280, 100
+    );
+    if (!showChoiceButtons && millis() - choiceStartTime > 5000) {
+      showChoiceButtons = true;
     }
   }
 }

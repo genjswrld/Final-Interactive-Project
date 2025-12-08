@@ -169,3 +169,4 @@ function drawChoiceButtons() {
   text("decrypt", 308, 390);
   text("delete", 408, 390);
 }
+function scrambleText (label)

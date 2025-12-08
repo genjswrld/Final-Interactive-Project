@@ -2,7 +2,8 @@
 
 
 //i learnt alot of different new functions and operators through this project,
-//as i inevitably had ideas that branched out beyond the scopes of my mini projects
+//as i inevitably had ideas that branched out beyond the scopes of my mini projects i needed to find functions 
+//that were able to carry out tasks for me. i utlised alot of arrays as well and randomisisation.
 
 // i designed the icons and layout first because they are simple geometric shapes, 
 //and it gave me a visual structure to build the interaction flow onto. 

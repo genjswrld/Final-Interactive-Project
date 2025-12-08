@@ -67,3 +67,10 @@ function draw() {
     runDeleteFade();
   }
 }
+function drawFileIcon(icon) {
+  fill(240, 240, 250);
+  rect(icon.x, icon.y, 140, 40);
+
+  fill(20);
+  text(icon.label, icon.x + 8, icon.y + 8);
+}

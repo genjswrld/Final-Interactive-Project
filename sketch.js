@@ -83,12 +83,12 @@ function mousePressed() {
 
   // Choice buttons
   if (showChoiceButtons && !virusActive) {
-    // DECRYPT
+    // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
       virusActive = true;
       return;
     }
-    // DELETE
+    // delete
     if (mouseX > 400 && mouseX < 480 && mouseY > 380 && mouseY < 420) {
       fadeActive = true;
       return;
@@ -97,7 +97,7 @@ function mousePressed() {
 
   // this is to scramble per each click
   if (currentOpenFile === "scrambled" && !virusActive) {
-    teasingIndex = (teasingIndex + 1) % teasingMessages.length;
+    teasingIndex = (teasing + 1) % teasingMessages.length;
     scrambledText = scrambleText(fileIcons[2].label);
     return;
   }
@@ -141,7 +141,7 @@ function drawOpenFileWindow() {
   if (currentOpenFile === "scrambled") {
     text(
       "File name:\n" + scrambledText +
-      "\n\n" + teasingMessages[teasingIndex],
+      "\n\n" + teasingMessages[teasing],
       280, 100
     );
     if (!showChoiceButtons && millis() - choiceStartTime > 5000) {

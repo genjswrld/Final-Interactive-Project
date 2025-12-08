@@ -255,6 +255,7 @@ function runDeleteFade() {
     fill(255); // fade level increases every frame, by drawing a fullscreen black rectangle
 // and then setting the opacity to be the fade level vriable, once it reaches full opacity (255) its deleted
 // and normal fully filled rectangle is made.
+  
     
     text(
       "Some things remain encrypted forever.\n\n" +
@@ -273,5 +274,16 @@ function runDeleteFade() {
       120
     );
     noLoop();
+
+  //  for this ending i really wanted the whole piece to land with a kind of reflective finish.
+    // after all the scrambling, the mock errors, the chaos of choosing to decrypt or delete,
+    // i felt the project needed a moment that breathed, something slower, something that lets
+    // the user sit with what the interaction *meant* rather than what it did.
+    //
+    // so instead of a reveal or a punchline, the screen fades to black and this message appears.
+    // it’s less about the mechanics of encryption and more about the emotional stuff i realised
+    // i was actually exploring: the way memory protects itself, the way things go unreadable,
+    // and how sometimes leaving something closed is lighter than forcing it open again.
+    
   }
 }

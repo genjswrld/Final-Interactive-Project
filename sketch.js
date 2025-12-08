@@ -170,7 +170,11 @@ function drawOpenFileWindow() {
     );
 
     if (!showChoiceButtons && millis() - choiceStartTime > 5000) {
-      showChoiceButtons = true;
+      showChoiceButtons = true;  // at first i wanted to estimate a time for  this event to begin, 
+    //but i realised soon after that, that was extrememly impractical as theres
+    //no way i could assume one would simply play through the showcase straight, so when i found out that 'millis'
+    // started counting as soon as the project was run, i used it to set the starting point for the choices to then contonue
+    // for 3000 ms (3s)
     }
   }
 }
@@ -225,11 +229,7 @@ function runVirusEffect() {
     virusStartTime = millis(); //https://p5js.org/reference/p5/millis/
   }
 
-  if (millis() - virusStartTime > 3000) { // at first i wanted to estimate a time for  this to begin, 
-    //but i realised soon after that, that was extrememly impractical as theres
-    //no way i could assume one would simply play through the showcase straight, so when i found out that 'millis'
-    // started counting as soon as the project was run, i used it to set the starting point for the 'virus' to then contonue
-    // for 3000 ms (3s)
+  if (millis() - virusStartTime > 3000) {
     noLoop();
   }
 } // this specific brace was annoying as i had originally forgotten it 

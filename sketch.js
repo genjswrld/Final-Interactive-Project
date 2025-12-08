@@ -51,13 +51,7 @@ function setup() {
   textAlign(LEFT, TOP);
   textSize(18);
 
- function draw() {
-
-  // i designed the icons and layout first because they are simple geometric shapes, 
-  //and it gave me a visual structure to build the interaction flow onto. 
-  //i also set up all my fuctions too to avoid confusion as i went along, i had written out a skeleton of what i wanted to happen
-  //this way i was able to idenity what vraiables and fucntions i may need (though i added as i went along)
-  
+ function draw() { 
   drawBackground();
 
   // i ended up doing the file icons before the logic even though i changed it later

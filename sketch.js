@@ -220,15 +220,21 @@ function runVirusEffect() {
 
   // stop after 3 seconds
   if (virusStartTime === 0) {
-    virusStartTime = millis();
+    virusStartTime = millis(); //https://p5js.org/reference/p5/millis/
   }
 
-  if (millis() - virusStartTime > 3000) {
+  if (millis() - virusStartTime > 3000) { // atfirst i wanted to estimate a time for  this to begin, 
+    //but i realised soon after that, that was extrememly impractical as theres
+    //no way i could assume one would simply play through the showcase straight, so when i found out that millis
+    // started counting as soon as the project was run, i used it to set the starting point for the 'virus' to then contonue
+    // for 3000 ms (3s)
     noLoop();
   }
-} // <-- THIS BRACE WAS MISSING BEFORE
+} // this specific brace was annoying as i had originally forgotten it 
+// and it mis-aligned my functions, causing a temporary break in my code
+// when it came to interacting with the delete button.
 
-// part
+
 function runDeleteFade() {
   fadeLevel += 3;
   fill(0, fadeLevel);
@@ -236,7 +242,10 @@ function runDeleteFade() {
 
   if (fadeLevel > 255) {
     background(0);
-    fill(255);
+    fill(255); // fade level increases every frame, by drawing a fullscreen black rectangle
+// and then setting the opacity to be the fade level vriable, once it reaches full opacity (255) its deleted
+// and normal fill rectangle is made
+    
     text(
       "Some things remain encrypted forever.\n\n" +
         "Not because they're dangerous, maybe they are\n" +

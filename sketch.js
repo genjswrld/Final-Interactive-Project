@@ -110,3 +110,20 @@ function mousePressed() {
     }
   }
 }
+function openFile(icon) {
+  if (icon.label === "word.txt") {
+    currentOpenFile = "word";
+  } 
+  else if (icon.label === "dates.txt") {
+    currentOpenFile = "dates";
+  } 
+  else {
+    currentOpenFile = "scrambled";
+    scrambledText = scrambleText(icon.label);
+
+    if (!choiceTimerStarted) {
+      choiceTimerStarted = true;
+      choiceStartTime = millis();
+    }
+  }
+}

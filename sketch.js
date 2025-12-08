@@ -107,7 +107,7 @@ function mousePressed() {
 
   // this is to scramble per each click
   if (currentFile === "scrambled" && !virusActive) {
-    mockingIndex = (mocking + 1) % mockingMessages.length; // the use of modulus here will move along the array i made
+    mocking = (mocking + 1) % mockingMessages.length; // the use of modulus here will move along the array i made
     // as it moves along the index MockingMessages and then loops back
     scrambledText = scrambleText(fileIcons[2].label);
     return;
@@ -123,18 +123,18 @@ function mousePressed() {
 }
 function openFile(icon) {
   if (icon.label === "word.txt") {
-    currentOpenFile = "word";
+    currentFile = "word";
   } 
   else if (icon.label === "dates.txt") {
-    currentOpenFile = "dates";
+    currentFile = "dates";
   } 
   else {
-    currentOpenFile = "scrambled";
+    currentFile = "scrambled";
     scrambledText = scrambleText(icon.label);
 
     if (!choiceTimerStart) {
       choiceTimerStart = true;
-      choiceStartTime = millis();
+      choiceStartTime = millis(); //
     }
   }
 }

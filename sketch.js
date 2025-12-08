@@ -32,7 +32,7 @@ let choiceTimerStart = false;
 let virusActive = false;
 let virusPopups = [];
 let virusStart = 0;
-let virusStartTime = 0; // (you use this but forgot to define it)
+let virusStartTime = 0; 
 
 // delete mode
 let fadeActive = false;
@@ -192,7 +192,7 @@ function scrambleText(label) {
 
 // part
 function runVirusEffect() {
-  let n = noise(frameCount * 0.02);
+  let n = noise(frameCount * 0.1);
   background(250, 200 + n * 30, 200 + n * 30);
 
   // spawn popups

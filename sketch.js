@@ -160,3 +160,12 @@ function drawOpenFileWindow() {
     }
   }
 }
+function drawChoiceButtons() {
+  fill(255);
+  rect(300, 380, 80, 40); // decrypt
+  rect(400, 380, 80, 40); // delete
+
+  fill(20);
+  text("decrypt", 308, 390);
+  text("delete", 408, 390);
+}

@@ -32,18 +32,18 @@ let choiceTimerStart = false;
 let virusActive = false;
 let virusPopups = [];
 let virusStart = 0;
+let virusStartTime = 0; // (you use this but forgot to define it)
 
 // delete mode
 let fadeActive = false;
 let fadeLevel = 0;
 
-// bg, i came across the noise value in the p5.js reference i experimented with the value
-//as just leaving it on framecount made it move way to fast. n is between 0 and 1 i learnt so i simply made the value between 0-20
-// the background has a very tiny color shoft throughout, again leaing into the whole 'memory' adjacent theme and also it overall was nice to learn
+// bg
 let bgR = 192, bgG = 200, bgB = 210;
+
 function drawBackground() {
   let n = noise(frameCount * 0.005);
-  background(bgR + n*20, bgG + n*20, bgB + n*20);
+  background(bgR + n * 20, bgG + n * 20, bgB + n * 20);
 }
 
 function setup() {
@@ -53,32 +53,36 @@ function setup() {
 
   // file icons
   fileIcons = [
-    { label: "word.txt", x: 80,  y: 120 },
+    { label: "word.txt", x: 80, y: 120 },
     { label: "dates.txt", x: 80, y: 220 },
     { label: "when it changed", x: 80, y: 320 }
   ];
 }
+
 function draw() {
   drawBackground();
+
   for (let icon of fileIcons) {
     drawFileIcon(icon);
   }
+
   if (currentFile && !virusActive && !fadeActive) {
-    drawOpenFileWindow(); // open the file if the virus mode isnt active (virus mode is only triggered by pressing 'when it changed')
+    drawOpenFileWindow();
   }
 
-  //buttons, using booleans fr simplicity as opposed to writng out a new 
   if (showChoiceButtons && !virusActive) {
     drawChoiceButtons();
   }
+
   if (virusActive) {
     runVirusEffect();
   }
-  // fade2black
+
   if (fadeActive) {
     runDeleteFade();
   }
 }
+
 function drawFileIcon(icon) {
   fill(240, 240, 250);
   rect(icon.x, icon.y, 140, 40);
@@ -86,17 +90,16 @@ function drawFileIcon(icon) {
   fill(20);
   text(icon.label, icon.x + 8, icon.y + 8);
 }
-function mousePressed() {
-  if (fadeActive) return; // nothing after delete
 
-  // choice buttons, this was the hardest part to understand. p5.js doesnt automatically detect clicks.
- // gotten from https://editor.p5js.org/Wacksowe/sketches/MRguew7F7 and a youtube video 
-  
+function mousePressed() {
+  if (fadeActive) return;
+
+  // choice buttons
   if (showChoiceButtons && !virusActive) {
     // decrypt
     if (mouseX > 300 && mouseX < 380 && mouseY > 380 && mouseY < 420) {
       virusActive = true;
-      return; // what i understood from this: mouse x and mose y track the mouse potion of the screen, so i manually, the && means AND so both the bounds of X,Y must be true to count as a click in that box specifically.
+      return;
     }
     // delete
     if (mouseX > 400 && mouseX < 480 && mouseY > 380 && mouseY < 420) {
@@ -105,92 +108,105 @@ function mousePressed() {
     }
   }
 
-  // this is to scramble per each click
+  // scramble per click
   if (currentFile === "scrambled" && !virusActive) {
-    mockingIndex = (mocking + 1) % mockingMessages.length; // the use of modulus here will move along the array i made
-    // as it moves along the index MockingMessages and then loops back
+    mocking = (mocking + 1) % mockingMessages.length;
     scrambledText = scrambleText(fileIcons[2].label);
     return;
   }
 
-  
   for (let icon of fileIcons) {
-    if (mouseX > icon.x && mouseX < icon.x + 140 &&
-        mouseY > icon.y && mouseY < icon.y + 40) {
-      openFile(icon); // manually describing each side of the 
+    if (
+      mouseX > icon.x &&
+      mouseX < icon.x + 140 &&
+      mouseY > icon.y &&
+      mouseY < icon.y + 40
+    ) {
+      openFile(icon);
     }
   }
 }
+
 function openFile(icon) {
   if (icon.label === "word.txt") {
     currentFile = "word";
-  } 
-  else if (icon.label === "dates.txt") {
+  } else if (icon.label === "dates.txt") {
     currentFile = "dates";
-  } 
-  else {
+  } else {
     currentFile = "scrambled";
     scrambledText = scrambleText(icon.label);
 
     if (!choiceTimerStart) {
       choiceTimerStart = true;
-      choiceStartTime = millis(); //
+      choiceStartTime = millis();
     }
   }
 }
+
 function drawOpenFileWindow() {
   fill(255);
   rect(260, 80, 380, 260);
   fill(20);
-  
+
   if (currentFile === "word") {
     text("Groceries:\n- milk\n- wraps\n- blue pens", 280, 100);
   }
+
   if (currentFile === "dates") {
-    text("12/03 — bday\n19/06 — term end\n02/11 — new phone\n28/08 — trip", 280, 100);
+    text(
+      "12/03 — bday\n19/06 — term end\n02/11 — new phone\n28/08 — trip",
+      280,
+      100
+    );
   }
+
   if (currentFile === "scrambled") {
     text(
-      "File name:\n" + scrambledText +
-      "\n\n" + mockingMessages[mocking],
-      280, 100
+      "File name:\n" + scrambledText + "\n\n" + mockingMessages[mocking],
+      280,
+      100
     );
+
     if (!showChoiceButtons && millis() - choiceStartTime > 5000) {
       showChoiceButtons = true;
     }
   }
 }
+
 function drawChoiceButtons() {
   fill(255);
-  rect(300, 380, 80, 40); // decrypt
-  rect(400, 380, 80, 40); // delete
+  rect(300, 380, 80, 40);
+  rect(400, 380, 80, 40);
 
   fill(20);
   text("decrypt", 308, 390);
   text("delete", 408, 390);
 }
-function scrambleText(label) {
-  // this function basically "jumbles" the text in the file window. 
-  // i wanted it to look glitchy but i didn’t want to hardcode random letters,
-  // so i found out you can take the actual label string and shuffle it.
 
+function scrambleText(label) {
   return label
-     .split("") //turns the text into an array of single characters.
-    // i only knew .split vaguely from python stuff but i checked the JS ref to see if it operated the same
+    .split("")
     .sort(() => random(-1, 1))
     .join("");
 }
+
 // part
 function runVirusEffect() {
   let n = noise(frameCount * 0.02);
-  background(250, 200 + n*30, 200 + n*30);
+  background(250, 200 + n * 30, 200 + n * 30);
 
   // spawn popups
   if (frameCount % 5 === 0) {
     virusPopups.push({
       x: random(width - 150),
       y: random(height - 60),
-      text: random(["ERROR", "invalid", "You can let it go.", "It's gone for a reason.", "It's better hidden."])
+      text: random([
+        "ERROR",
+        "invalid",
+        "You can let it go.",
+        "It's gone for a reason.",
+        "It's better hidden."
+      ])
     });
   }
 
@@ -204,11 +220,14 @@ function runVirusEffect() {
 
   // stop after 3 seconds
   if (virusStartTime === 0) {
-    virusStartTime = millis(); 
-  if (millis() - virusStartTime > 3000) { //as millis keeps running, the different 
+    virusStartTime = millis();
+  }
+
+  if (millis() - virusStartTime > 3000) {
     noLoop();
   }
-}
+} // <-- THIS BRACE WAS MISSING BEFORE
+
 // part
 function runDeleteFade() {
   fadeLevel += 3;
@@ -220,20 +239,20 @@ function runDeleteFade() {
     fill(255);
     text(
       "Some things remain encrypted forever.\n\n" +
-      "Not because they're dangerous, maybe they are\n" +
-      "but sometimes letting them go\n" +
-      "is kinder than trying to recover\n" +
-      "what no longer fits.\n" +
-      "Not all memory needs to be opened,\n" +
-      "pushing, prodding, prying into your mind;\n" +
-      "hurting as it re-rears its ugly head and draws a plough \n" +
-      "deeper\n" +
-      "and deeper.\n" +
-      "Not all memory needs to be opened. \n\n" +
-      "We too encrypt and guard ourselves.",
-       120, 120
+        "Not because they're dangerous, maybe they are\n" +
+        "but sometimes letting them go\n" +
+        "is kinder than trying to recover\n" +
+        "what no longer fits.\n" +
+        "Not all memory needs to be opened,\n" +
+        "pushing, prodding, prying into your mind;\n" +
+        "hurting as it re-rears its ugly head and draws a plough \n" +
+        "deeper\n" +
+        "and deeper.\n" +
+        "Not all memory needs to be opened. \n\n" +
+        "We too encrypt and guard ourselves.",
+      120,
+      120
     );
     noLoop();
   }
 }
-//

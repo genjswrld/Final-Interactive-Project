@@ -16,7 +16,7 @@ let mockingMessages = [
   "You don't even remember.",
   "Trying won't help.",
   "It's gone because you hid it.",
-  "Why keep clicking?"
+  "Why keep looking?"
 ];
 let mocking = 0;
 
@@ -25,7 +25,7 @@ let showChoiceButtons = false;
 let choiceStartTime = 0;
 let choiceTimerStart = false;
 
-// virus mode
+// 'virus' mode
 let virusActive = false;
 let virusPopups = [];
 let virusStart = 0;
@@ -34,7 +34,9 @@ let virusStart = 0;
 let fadeActive = false;
 let fadeLevel = 0;
 
-// bg
+// bg, i came across the noise value in the p5.js reference i experimented with the value
+//as just leaving it on framecount made it move way to fast. n is between 0 and 1 i learnt so i simply made the value between 0-20
+// the background has a very tiny color shoft throughout, again leaing into the whole 'memory' adjacent theme and also it overall was nice to learn
 let bgR = 192, bgG = 200, bgB = 210;
 function drawBackground() {
   let n = noise(frameCount * 0.005);

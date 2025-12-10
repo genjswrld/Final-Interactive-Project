@@ -34,6 +34,7 @@ let virusActive = false;
 let virusPopups = [];
 let virusStart = 0;
 let virusStartTime = 0; 
+let virusFade = 0;
 
 // delete mode
 let fadeActive = false;
@@ -43,6 +44,9 @@ let fadeLevel = 0;
 // on the eyes, using random would've caused the background to change to fast as opposed to the soft, dream-like fade
 // i wanted to achieve. i discovered the noise value (https://p5js.org/reference/p5/noise/)
 let bgR = 192, bgG = 200, bgB = 210;
+
+// rounded corner variable
+let corner = 10;
 
 function drawBackground() {
   let n = noise(frameCount * 0.005);
@@ -88,7 +92,7 @@ function draw() {
 
 function drawFileIcon(icon) {
   fill(240, 240, 250);
-  rect(icon.x, icon.y, 140, 40);
+  rect(icon.x, icon.y, 140, 40, corner);
 
   fill(20);
   text(icon.label, icon.x + 8, icon.y + 8);
@@ -116,7 +120,6 @@ function mousePressed() {
     }
   }
 
-  // scramble per click
   if (currentFile === "scrambled" && !virusActive) {
     mocking = (mocking + 1) % mockingMessages.length;
     scrambledText = scrambleText(fileIcons[2].label);
@@ -153,7 +156,7 @@ function openFile(icon) {
 
 function drawOpenFileWindow() {
   fill(255);
-  rect(260, 80, 380, 260);
+  rect(260, 80, 380, 260, corner);
   fill(20);
 
   if (currentFile === "word") {
@@ -176,19 +179,19 @@ function drawOpenFileWindow() {
     );
 
     if (!showChoiceButtons && millis() - choiceStartTime > 5000) {
-      showChoiceButtons = true;  // at first i wanted to estimate a time for  this event to begin, 
+      showChoiceButtons = true;
+    }
+  }
+} // at first i wanted to estimate a time for  this event to begin, 
     //but i realised soon after that, that was extrememly impractical as theres
     //no way i could assume one would simply play through the showcase straight, so when i found out that 'millis'
     // started counting as soon as the project was run, i used it to set the starting point for the choices to then contonue
     // for 3000 ms (3s)
-    }
-  }
-}
 
 function drawChoiceButtons() {
   fill(255);
-  rect(300, 380, 80, 40);
-  rect(400, 380, 80, 40);
+  rect(300, 380, 80, 40, corner);
+  rect(400, 380, 80, 40, corner);
 
   fill(20);
   text("decrypt", 308, 390);
@@ -199,18 +202,17 @@ function scrambleText(label) {
   return label
     .split("") // i knew vaguely of the split function from python, in p5.js it creates an erray from every character (https://p5js.org/reference/p5/split/)
     .sort(() => random(-1, 1))
-    .join(""); 
-  // the sort function doesn’t really care what order things end up in, it just keeps
+    .join("");
+    // the sort function doesn’t really care what order things end up in, it just keeps
   // reordering the characters based on whatever random value it gets. that’s what makes
   // the text scramble in a kind of chaotic way.
 }
 
-
 function runVirusEffect() {
   let n = noise(frameCount * 0.1);
   background(250, 200 + n * 30, 200 + n * 30);
-
-  // spawn popups
+  
+// spawn popups
   if (frameCount % 5 === 0) {
     virusPopups.push({
       x: random(width - 150),
@@ -224,40 +226,50 @@ function runVirusEffect() {
       ])
     });
   }
-
-  // draw popups
+// draw popups
   for (let box of virusPopups) {
     fill(255, 230);
-    rect(box.x, box.y, 150, 50);
+    rect(box.x, box.y, 150, 50, corner);
     fill(20);
     text(box.text, box.x + 10, box.y + 10);
   }
 
-  // stop after 3 seconds
   if (virusStartTime === 0) {
     virusStartTime = millis(); //https://p5js.org/reference/p5/millis/
-  }
-
-  if (millis() - virusStartTime > 3000) {
-    noLoop();
-  }
-} // this specific brace was annoying as i had originally forgotten it 
+  } // this specific brace was annoying as i had originally forgotten it 
 // and it mis-aligned my functions, causing a temporary break in my code
 // when it came to interacting with the delete button.
 
+
+  if (millis() - virusStartTime > 3000) {
+    virusFade += 3;
+    fill(0, virusFade);
+    rect(0, 0, width, height);
+
+    if (virusFade > 255) { 
+  
+      background(0);
+      fill(255);
+      text(
+        "You tried. And what of it?\nforcing something out that only did more harm than good.",
+        120,
+        200
+      );
+      noLoop();
+    }
+  }
+}
 
 function runDeleteFade() {
   fadeLevel += 3;
   fill(0, fadeLevel);
   rect(0, 0, width, height);
 
-  if (fadeLevel > 255) {
+  if (fadeLevel > 255) { // fade level increases every frame, by drawing a fullscreen black rectangle
+// and then setting the opacity to be the fade level variable, once it reaches full opacity (255) its deleted
+// and normal fully filled rectangle is made. 
     background(0);
-    fill(255); // fade level increases every frame, by drawing a fullscreen black rectangle
-// and then setting the opacity to be the fade level vriable, once it reaches full opacity (255) its deleted
-// and normal fully filled rectangle is made.
-  
-    
+    fill(255);
     text(
       "Some things remain encrypted forever.\n\n" +
         "Not because they're dangerous, maybe they are\n" +
@@ -275,8 +287,9 @@ function runDeleteFade() {
       120
     );
     noLoop();
-
-  //  for this ending i really wanted the whole piece to land with a kind of reflective finish.
+  }
+}
+ //  for this ending i really wanted the whole piece to land with a kind of reflective finish.
     // after all the scrambling, the mock errors, the chaos of choosing to decrypt or delete,
     // i felt the project needed a moment that breathed, something slower, something that lets
     // the user sit with what the interaction *meant* rather than what it did.
@@ -285,6 +298,3 @@ function runDeleteFade() {
     // it’s less about the mechanics of encryption and more about the emotional stuff i realised
     // i was actually exploring: the way memory protects itself, the way things go unreadable,
     // and how sometimes leaving something closed is lighter than forcing it open again.
-    
-  }
-}

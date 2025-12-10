@@ -21,7 +21,7 @@ Clicking it scrambles its name and triggers a series of lightly mocking messages
 
 After a short delay, the desktop offers two options: decrypt or delete. 
 
-Choosing decrypt overwhelms the screen with error messages — fast, repetitive pop-ups that echo the panicked chaos of encountering malware, a blockage of sorts an imitation of the dread of resurfacing bad memories. (Which is implied by the file's title of 'when it changed'.
+Choosing decrypt overwhelms the screen with error messages; fast, repetitive pop-ups that echo the panicked chaos of encountering malware, a blockage of sorts an imitation of the dread of resurfacing bad memories. (Which is implied by the file's title of 'when it changed').
 
 Choosing delete causes the screen to fade gently to black, revealing a meditative message about memory, encryption, and the idea that some things become unreadable with time, and that not everything needs to be recovered.
 
